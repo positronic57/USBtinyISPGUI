@@ -1,5 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
 <avrdudeGUI>
+   <AVRDevice id="Atmega328P">
+      <EEPROM>1</EEPROM>
+      <HFUSE defaultValue="0xD9">
+         <bit7>RSTDISBL</bit7>
+         <bit6>DWEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>WDTON</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BOOTSZ1</bit2>
+         <bit1>BOOTSZ0</bit1>
+         <bit0>BOOTRST</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0x62">
+         <bit7>CKDIV8</bit7>
+         <bit6>CKOUT</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
    <AVRDevice id="Atmega32">
       <EEPROM>1</EEPROM>
       <HFUSE defaultValue="0x99">
