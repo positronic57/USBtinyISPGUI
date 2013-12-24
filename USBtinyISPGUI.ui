@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>USBtinyISPGUIClass</class>
+ <widget class="QMainWindow" name="USBtinyISPGUIClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>541</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>490</width>
+    <height>387</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>490000</width>
+    <height>387000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>USBtinyISP GUI</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icons/usbtinyisp-gui-48x48.png</normaloff>:/icons/usbtinyisp-gui-48x48.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_12">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_12">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Atmel Device:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="microcontrollerComboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Programmer</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QGroupBox" name="groupBox">
+                <property name="title">
+                 <string>Action:</string>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <item>
+                    <widget class="QRadioButton" name="programRadioButton">
+                     <property name="text">
+                      <string>Program Memory</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QRadioButton" name="erraseRadioButton">
+                     <property name="text">
+                      <string>Erase Memory</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="memoryComboBox">
+                     <item>
+                      <property name="text">
+                       <string>Flash</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>EEPROM</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="selectFileGroupBox">
+                <property name="title">
+                 <string>Select File:</string>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_2">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                     <item>
+                      <widget class="QLabel" name="label">
+                       <property name="text">
+                        <string>HEX File:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="HEXFileLineEdit">
+                       <property name="minimumSize">
+                        <size>
+                         <width>290</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="openPushButton">
+                       <property name="text">
+                        <string>Open</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <item>
+                      <spacer name="horizontalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>338</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="startPushButton">
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>23</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Start</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Fuse Editor</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
+               <string>High Byte</string>
+              </property>
+              <widget class="QWidget" name="layoutWidget">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>20</y>
+                 <width>101</width>
+                 <height>221</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>OCDEN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>JTAGEN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SPIEN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>CKOPT</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>EESAVE</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>BOOTSZ1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>BOOTSZ0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_8">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>BOOTRST</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>Value: 0x</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="highByteLineEdit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>32</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>32</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="title">
+               <string>Low Byte</string>
+              </property>
+              <widget class="QWidget" name="layoutWidget">
+               <property name="geometry">
+                <rect>
+                 <x>11</x>
+                 <y>22</y>
+                 <width>101</width>
+                 <height>218</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_5">
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_9">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>BODLEVEL</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_10">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>BODEN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_11">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SUT1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_12">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SUT0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_13">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>CKSEL3</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_14">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>CKSEL2</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_15">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>CKSEL1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_16">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>18</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>CKSEL0</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="label_4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>59</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>59</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Value: 0x</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lowByteLineEdit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>32</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>32</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QPushButton" name="readPushButton">
+                <property name="text">
+                 <string>Read</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="defaultPushButton">
+                <property name="text">
+                 <string>Default</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="writePushButton">
+                <property name="text">
+                 <string>Write</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>138</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>541</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionConfigure"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionDevice_Info"/>
+    <addaction name="separator"/>
+    <addaction name="actionConvertor"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionConfigure">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../icons/configure.png</normaloff>../../../icons/configure.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Configure</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../icons/exit.png</normaloff>../../../icons/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionConvertor">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../icons/refresh.png</normaloff>../../../icons/refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Convertor</string>
+   </property>
+  </action>
+  <action name="actionDevice_Info">
+   <property name="text">
+    <string>Device Info</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

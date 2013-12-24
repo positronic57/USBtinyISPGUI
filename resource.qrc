@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>icons/configure.png</file>
+        <file>icons/exit.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/information.png</file>
+        <file>icons/usbtinyisp-gui-48x48.png</file>
+    </qresource>
+</RCC>

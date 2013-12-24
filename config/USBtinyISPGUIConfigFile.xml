@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='utf-8'?>
+<avrdudeGUI>
+   <AVRDevice id="Atmega32">
+      <EEPROM>1</EEPROM>
+      <HFUSE defaultValue="0x99">
+         <bit7>OCDEN</bit7>
+         <bit6>JTAGEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>CKOPT</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BOOTSZ1</bit2>
+         <bit1>BOOTSZ0</bit1>
+         <bit0>BOOTRST</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0xE1">
+         <bit7>BODLEVEL</bit7>
+         <bit6>BODEN</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="Atmega16">
+      <EEPROM>1</EEPROM>
+      <HFUSE defaultValue="0x99">
+         <bit7>OCDEN</bit7>
+         <bit6>JTAGEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>CKOPT</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BOOTSZ1</bit2>
+         <bit1>BOOTSZ0</bit1>
+         <bit0>BOOTRST</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0xE1">
+         <bit7>BODLEVEL</bit7>
+         <bit6>BODEN</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="Atmega8">
+      <EEPROM>1</EEPROM>
+      <HFUSE defaultValue="0x99">
+         <bit7>RSTDISBL</bit7>
+         <bit6>WTDON</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>CKOPT</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BOOTSZ1</bit2>
+         <bit1>BOOTSZ0</bit1>
+         <bit0>BOOTRST</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0xE1">
+         <bit7>BODLEVEL</bit7>
+         <bit6>BODEN</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="ATtiny2313">
+      <EEPROM>0</EEPROM>
+      <HFUSE defaultValue="0xDF">
+         <bit7>DWEN</bit7>
+         <bit6>EESAVE</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>WDTON</bit4>
+         <bit3>BODLEVEL2</bit3>
+         <bit2>BODLEVEL1</bit2>
+         <bit1>BODLEVEL0</bit1>
+         <bit0>RSTDISBL</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0x64">
+         <bit7>CKDIV8</bit7>
+         <bit6>CKOUT</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="ATtiny25">
+      <EEPROM>0</EEPROM>
+      <HFUSE defaultValue="0xDF">
+         <bit7>RSTDISBL</bit7>
+         <bit6>DWEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>WDTON</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BODLEVEL2</bit2>
+         <bit1>BODLEVEL1</bit1>
+         <bit0>BODLEVEL0</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0x62">
+         <bit7>CKDIV8</bit7>
+         <bit6>CKOUT</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="ATtiny45">
+      <EEPROM>0</EEPROM>
+      <HFUSE defaultValue="0xDF">
+         <bit7>RSTDISBL</bit7>
+         <bit6>DWEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>WDTON</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BODLEVEL2</bit2>
+         <bit1>BODLEVEL1</bit1>
+         <bit0>BODLEVEL0</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0x62">
+         <bit7>CKDIV8</bit7>
+         <bit6>CKOUT</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <AVRDevice id="ATtiny85">
+      <EEPROM>0</EEPROM>
+      <HFUSE defaultValue="0xDF">
+         <bit7>RSTDISBL</bit7>
+         <bit6>DWEN</bit6>
+         <bit5>SPIEN</bit5>
+         <bit4>WDTON</bit4>
+         <bit3>EESAVE</bit3>
+         <bit2>BODLEVEL2</bit2>
+         <bit1>BODLEVEL1</bit1>
+         <bit0>BODLEVEL0</bit0>
+      </HFUSE>
+      <LFUSE defaultValue="0x62">
+         <bit7>CKDIV8</bit7>
+         <bit6>CKOUT</bit6>
+         <bit5>SUT1</bit5>
+         <bit4>SUT0</bit4>
+         <bit3>CKSEL3</bit3>
+         <bit2>CKSEL2</bit2>
+         <bit1>CKSEL1</bit1>
+         <bit0>CKSEL0</bit0>
+      </LFUSE>
+   </AVRDevice>
+   <config>
+      <avrdudeExec>/usr/bin/avrdude</avrdudeExec>
+      <avrdudeConf>/etc/avrdude.conf</avrdudeConf>
+      <eraseBefore>1</eraseBefore>
+      <verifyAfter>1</verifyAfter>
+   </config>
+</avrdudeGUI>
