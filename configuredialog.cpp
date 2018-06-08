@@ -17,14 +17,14 @@ configureDialog::configureDialog(QWidget *parent)
     execFileDialog=new QFileDialog(this);
     execFileDialog->setViewMode(QFileDialog::Detail);
     execFileDialog->setFileMode(QFileDialog::ExistingFile);
-    execFileDialog->setFilter(tr("AVRDUDE exec (avrdude)"));
+    execFileDialog->setNameFilter("AVRDUDE binary (avrdude)");
     execFileDialog->setViewMode(QFileDialog::Detail);
     execFileDialog->setDirectory("/home/");
 
     confFileDialog=new QFileDialog(this);
     confFileDialog->setViewMode(QFileDialog::Detail);
     confFileDialog->setFileMode(QFileDialog::ExistingFile);
-    confFileDialog->setFilter(tr("AVRDUDE conf file (avrdude.conf)"));
+    confFileDialog->setNameFilter("AVRDUDE conf file (avrdude.conf)");
     confFileDialog->setViewMode(QFileDialog::Detail);
     confFileDialog->setDirectory("/home/");
 

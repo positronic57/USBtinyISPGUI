@@ -7,25 +7,31 @@
 *
 */
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include "USBtinyISPGUI.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     USBtinyISPGUI w;
+
+
+    /* Show warning message in case USBtinyISP programmer is not present/connected. */
     if (!w.findUSBTinyProgrammer())
     {
-        QMessageBox::critical(&w,"Error","USBtinyISP programmer is not present!\nPlease connect the USBTinyISP and then start the program again.");
-        return 1;
+        QMessageBox::warning(&w, "Warrning", "USBtinyISP programmer is not present/connected!\n\nConnect it before using the programmer related functions.", QMessageBox::Ok);
     }
 
+
+    /* Exit in case the configuration file of USBtunyISP doesn't exist. */
     if (!w.doesConfigFileExist(a.applicationDirPath()+"/config/USBtinyISPGUIConfigFile.xml"))
     {
-        QMessageBox::critical(&w,"Error","AVRProgrammer Confguration File is missing!");
-        return 1;
+        QMessageBox::critical(&w, "Error","USBtinyISPGUI confguration file is missing!");
+        return -1;
     }
 
     w.show();
+
     return a.exec();
 }

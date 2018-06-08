@@ -10,7 +10,7 @@
 #ifndef CONFIGUREDIALOG_H
 #define CONFIGUREDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QFileDialog>
 #include "ui_configureDialog.h"
 

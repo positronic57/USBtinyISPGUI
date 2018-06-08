@@ -65,8 +65,7 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
 
     fileDialog->setViewMode(QFileDialog::Detail);
     fileDialog->setFileMode(QFileDialog::ExistingFile);
-    fileDialog->setFilter(tr("HEX files (*.HEX *.hex)"));
-    fileDialog->setViewMode(QFileDialog::Detail);
+    fileDialog->setNameFilter("All HEX files (*.HEX *.hex)");;
     fileDialog->setDirectory("/home/");
 
     ui->startPushButton->setEnabled(false);
@@ -90,24 +89,19 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
     Command=AVRDUDEexecutable+AVRDUDEconffile+verifyArgument+autoEraseArgument;
 
     statusProgressBar=new QProgressBar(this);
-    statusProgressBar->setFixedSize(80,16);
     statusProgressBar->setValue(0);
     statusProgressBar->setTextVisible(false);
     fileSizeLabel=new QLabel("File size:",this);
-    fileSizeLabel->setFixedSize(55,16);
     showFileSizeLabel=new QLabel("",this);
-    showFileSizeLabel->setFixedSize(60,16);
     fileModificationTimeLabel=new QLabel("Last Change:",this);
-    fileModificationTimeLabel->setFixedSize(80,16);
     showFileModificatonTimeLabel=new QLabel("",this);
-    showFileModificatonTimeLabel->setFixedSize(114,16);
 
-    ui->statusBar->insertPermanentWidget(0,fileSizeLabel,0);
-    ui->statusBar->insertPermanentWidget(1,showFileSizeLabel,0);
-    ui->statusBar->insertPermanentWidget(2,fileModificationTimeLabel,0);
-    ui->statusBar->insertPermanentWidget(3,showFileModificatonTimeLabel,0);
-    ui->statusBar->insertPermanentWidget(4,statusLabel,0);
-    ui->statusBar->insertPermanentWidget(5,statusProgressBar,0);
+    ui->statusBar->insertPermanentWidget(0,fileSizeLabel,1);
+    ui->statusBar->insertPermanentWidget(1,showFileSizeLabel,1);
+    ui->statusBar->insertPermanentWidget(2,fileModificationTimeLabel,1);
+    ui->statusBar->insertPermanentWidget(3,showFileModificatonTimeLabel,1);
+    ui->statusBar->insertPermanentWidget(4,statusLabel,1);
+    ui->statusBar->insertPermanentWidget(5,statusProgressBar,1);
 
     connect(ui->openPushButton,SIGNAL(clicked()),fileDialog,SLOT(exec()));
     connect(timeLine, SIGNAL(frameChanged(int)), statusProgressBar, SLOT(setValue(int)));
@@ -727,10 +721,10 @@ QMessageBox::about(this, tr("About USBtinyISP GUI"),
             tr("<h2>USBtinyISP GUI 1.0</h2>"
                "<p>"
                "<p>USBtiny GUI is a small GUI frontend application for "
-               "avrdude and USBtinyISP programmer."
-               "<p>Minimal software requerements: <br>"
-               "- <a href=\"http://savannah.nongnu.org/projects/avrdude/\">avrdude</a> min. version 5.5 or newer;<br>"
-               "- <a href=\"http://www.ladyada.net/make/usbtinyisp/\">USBtinyISP</a> programmer."
+               "<a href=\"http://savannah.nongnu.org/projects/avrdude/\">avrdude</a> (version 5.5 or newer) "
+               "and <a href=\"https://learn.adafruit.com/usbtinyisp/overview\">USBtinyISP</a> programmer."
                "<p>Author: Goce Boshkovski"
+               "<p>License: GNU General Public License Version 2"
+               "<p>The program is provided AS IS with NO WARRANTY OF ANY KIND."
                ));
 }

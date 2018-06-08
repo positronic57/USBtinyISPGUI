@@ -10,7 +10,7 @@
 #ifndef DEVICEINFODIALOG_H
 #define DEVICEINFODIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <qtextedit.h>
 
 namespace Ui {

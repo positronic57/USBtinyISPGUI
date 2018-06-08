@@ -10,7 +10,7 @@
 #ifndef USBtinyISPGUI_H
 #define USBtinyISPGUI_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include <QFileDialog>
 #include <QProcess>
 #include <QMessageBox>
@@ -29,7 +29,7 @@
 
 extern "C"
 {
-#include "usb.h"
+    #include "usb.h"
 }
 
 #define USBTINY_VENDOR_ID 0x1781
@@ -88,12 +88,13 @@ public:
                   writeFUSEBYTES,
                   getDeviceInfoData
               };
+
     USBtinyISPGUI::Actions processID;
-    bool findUSBTinyProgrammer(void);
-    bool findAVRDUDE(void);
-    bool doesConfigFileExist(QString);
     void getProgrammerConfig(void);
     void getMicrocontrollerList(void);
+    bool findAVRDUDE(void);
+    static bool findUSBTinyProgrammer(void);
+    static bool doesConfigFileExist(QString);
 
 private slots:
     void fileSelected(QStringList);
