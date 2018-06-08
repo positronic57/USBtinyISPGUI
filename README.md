@@ -11,7 +11,7 @@ The following functions are implemented:
 The list of supported microcontroller is defined in XML configuration file.
  
 ### Requirements
-- [avrdude] (http://savannah.nongnu.org/projects/avrdude/) version 5.5 or newer;
+- [avrdude](http://savannah.nongnu.org/projects/avrdude/) version 5.5 or newer;
 - libusb (used only to detect presents of the Adafruit USBTinyISP programer.);
 - [USBTinyISP](http://learn.adafruit.com/usbtinyisp) programmer from Adafruit.
 
