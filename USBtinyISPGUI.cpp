@@ -329,8 +329,8 @@ void USBtinyISPGUI::execCommand(int actionID)
             break;
         case USBtinyISPGUI::writeFUSEBYTES:
             {
-                cmd+=cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES+1)+"0x"+ui->highByteLineEdit->text()+":m";
-                cmd+=cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES+2)+"0x"+ui->lowByteLineEdit->text()+":m";
+                cmd+=cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES+1)+"0x"+ui->lowByteLineEdit->text()+":m";
+                cmd+=cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES+2)+"0x"+ui->highByteLineEdit->text()+":m";
                 statusLabel->setText("Writing");
             }
             break;
