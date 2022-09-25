@@ -12,26 +12,26 @@
 
 deviceinfodialog::deviceinfodialog(QWidget *parent) :
     QDialog(parent),
-    m_ui(new Ui::deviceinfodialog)
+    ui(new Ui::deviceinfodialog)
 {
-    m_ui->setupUi(this);
-    m_ui->textEdit->setReadOnly(true);
-    m_ui->textEdit->setAcceptRichText(true);
-    m_ui->textEdit->setAlignment(Qt::AlignJustify);
-    m_ui->textEdit->setAutoFormatting(QTextEdit::AutoAll);
-    m_ui->textEdit->setLineWrapMode(QTextEdit::WidgetWidth);
+    ui->setupUi(this);
+    ui->textEdit->setReadOnly(true);
+    ui->textEdit->setAcceptRichText(true);
+    ui->textEdit->setAlignment(Qt::AlignJustify);
+    ui->textEdit->setAutoFormatting(QTextEdit::AutoAll);
+    ui->textEdit->setLineWrapMode(QTextEdit::WidgetWidth);
 }
 
 deviceinfodialog::~deviceinfodialog()
 {
-    delete m_ui;
+    delete ui;
 }
 
 void deviceinfodialog::changeEvent(QEvent *e)
 {
     switch (e->type()) {
     case QEvent::LanguageChange:
-        m_ui->retranslateUi(this);
+        ui->retranslateUi(this);
         break;
     default:
         break;
@@ -41,6 +41,6 @@ void deviceinfodialog::changeEvent(QEvent *e)
 void deviceinfodialog::setDeviceInformation(QByteArray deviceinfo)
 {
     QString txtoutput = deviceinfo;
-    m_ui->textEdit->setText(txtoutput);
+    ui->textEdit->setText(txtoutput);
 }
 

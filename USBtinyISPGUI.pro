@@ -8,32 +8,50 @@
 #
 
 # Enable CCACHE use
-QMAKE_CXX = ccache g++
+#QMAKE_CXX = ccache g++
+
+VERSION_MAJOR = 1
+VERSION_MINOR = 0
+VERSION_RELEASE = 0
+
+QMAKE_CXX = g++
+QMAKE_CXXFLAGS += "-fno-sized-deallocation"
 
 QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QT += xml
 TARGET = USBtinyISPGUI
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
-    USBtinyISPGUI.cpp \
-    configuredialog.cpp \
-    deviceinfodialog.cpp
+DEFINES += "APPLICATION_MAJOR_VERSION=$$VERSION_MAJOR" \
+           "APPLICATION_MINOR_VERSION=$$VERSION_MINOR" \
+           "APPLICATION_RELEASE_VERSION=$$VERSION_RELEASE"
 
-HEADERS += USBtinyISPGUI.h \
-    configuredialog.h \
-    deviceinfodialog.h
+#INCLUDEPATH += /usr/include/
+#INCLUDEPATH += /usr/local/include
 
-FORMS += USBtinyISPGUI.ui \
-    configureDialog.ui \
-    deviceinfodialog.ui
+SOURCES += src/main.cpp \
+    src/USBtinyISPGUI.cpp \
+    src/confighandler.cpp \
+    src/configuredialog.cpp \
+    src/deviceinfodialog.cpp \
+    src/shellcmdexecutor.cpp
 
-INCLUDEPATH += /usr/include/
+HEADERS += src/USBtinyISPGUI.h \
+    src/confighandler.h \
+    src/configuredialog.h \
+    src/deviceinfodialog.h \
+    src/shellcmdexecutor.h
 
-LIBS += -L/usr/lib/x86_64-linux-gnu/ \
-    -lusb
+FORMS += src/USBtinyISPGUI.ui \
+    src/configureDialog.ui \
+    src/deviceinfodialog.ui
+
+#LIBS += -L/usr/lib/x86_64-linux-gnu
+#LIBS += -L/usr/local/lib
+LIBS += -lpugixml -lusb
 
 RESOURCES += resource.qrc
+
+

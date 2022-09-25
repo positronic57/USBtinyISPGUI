@@ -29,7 +29,7 @@ protected:
     virtual void changeEvent(QEvent *e);
 
 private:
-    Ui::deviceinfodialog *m_ui;
+    Ui::deviceinfodialog *ui;
 };
 
 #endif // DEVICEINFODIALOG_H
