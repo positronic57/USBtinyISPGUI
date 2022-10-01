@@ -84,7 +84,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="programmerTab">
        <attribute name="title">
@@ -244,221 +244,17 @@ or erase the flash memeory.</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="1" rowspan="2">
-         <widget class="QGroupBox" name="groupBox_2">
+         <widget class="QGroupBox" name="fusesLowByteGroupBox">
           <property name="title">
            <string>Fuses Low Byte</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_7">
-             <property name="toolTip">
-              <string>LFUSE Bit 7</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_6">
-             <property name="toolTip">
-              <string>LFUSE Bit 6</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_5">
-             <property name="toolTip">
-              <string>LFUSE Bit 5</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_4">
-             <property name="toolTip">
-              <string>LFUSE Bit 4</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_3">
-             <property name="toolTip">
-              <string>LFUSE Bit 3</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_2">
-             <property name="toolTip">
-              <string>LFUSE Bit 2</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_1">
-             <property name="toolTip">
-              <string>LFUSE Bit 1</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0" colspan="2">
-            <widget class="QCheckBox" name="lfuse_bit_0">
-             <property name="toolTip">
-              <string>LFUSE Bit 0</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Value: 0x</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QLineEdit" name="lowByteLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="inputMask">
-              <string>HH</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
         <item row="0" column="0" rowspan="2">
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="fusesHighByteGroupBox">
           <property name="title">
            <string>Fuses High Byte</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_7">
-             <property name="toolTip">
-              <string>HFUSE Bit 7</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_6">
-             <property name="toolTip">
-              <string>HFUSE Bit 6</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_5">
-             <property name="toolTip">
-              <string>HFUSE Bit 5</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_4">
-             <property name="toolTip">
-              <string>HFUSE Bit 4</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_3">
-             <property name="toolTip">
-              <string>HFUSE Bit 3</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_2">
-             <property name="toolTip">
-              <string>HFUSE Bit 2</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_1">
-             <property name="toolTip">
-              <string>HFUSE Bit 1</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0" colspan="2">
-            <widget class="QCheckBox" name="hfuse_bit_0">
-             <property name="toolTip">
-              <string>HFUSE Bit 0</string>
-             </property>
-             <property name="text">
-              <string>CheckBox</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Value: 0x</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QLineEdit" name="highByteLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="inputMask">
-              <string>HH</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
         <item row="0" column="2" rowspan="2">

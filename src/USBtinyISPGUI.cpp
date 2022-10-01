@@ -33,31 +33,46 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
 
     actionButtonGroup->addButton(ui->programRadioButton, 0);
     actionButtonGroup->addButton(ui->eraseRadioButton, 1);
-    hfuseButtonGroup=new QButtonGroup(this);
-    hfuseButtonGroup->setExclusive(false);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_0, 0);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_1, 1);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_2, 2);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_3, 3);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_4, 4);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_5, 5);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_6, 6);
-    hfuseButtonGroup->addButton(ui->hfuse_bit_7, 7);
-    lfuseButtonGroup=new QButtonGroup(this);
-    lfuseButtonGroup->setExclusive(false);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_0, 0);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_1, 1);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_2, 2);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_3, 3);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_4, 4);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_5, 5);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_6, 6);
-    lfuseButtonGroup->addButton(ui->lfuse_bit_7, 7);
+
+    hFormGroupBox = new QGroupBox;
+    lFormGroupBox = new QGroupBox;
+    hFormLayout = new QFormLayout;
+    lFormLayout = new QFormLayout;
+
+    hfuseBits = new BitsWidget(8, BitsWidget::BIT_BOXES_LAYOUT::Vertical);
+    lfuseBits = new BitsWidget(8, BitsWidget::BIT_BOXES_LAYOUT::Vertical);
+    lowByteLineEdit = new QLineEdit;
+    highByteLineEdit = new QLineEdit;
+    lowByteLineEdit->setInputMask("HH");
+    highByteLineEdit->setInputMask("HH");
+
+    hFormLayout->addRow(hfuseBits);
+    hFormLayout->addRow("Value 0x", highByteLineEdit);
+    lFormLayout->addRow(lfuseBits);
+    lFormLayout->addRow("Value 0x", lowByteLineEdit);
+
+    hFormGroupBox->setLayout(hFormLayout);
+    lFormGroupBox->setLayout(lFormLayout);
+    ui->fusesHighByteGroupBox->setLayout(hFormLayout);
+    ui->fusesLowByteGroupBox->setLayout(lFormLayout);
+
+    statusProgressBar = new QProgressBar;
+    statusProgressBar->setValue(0);
+    statusProgressBar->setTextVisible(false);
+    fileSizeLabel = new QLabel("File size:");
+    showFileSizeLabel = new QLabel("");
+    fileModificationTimeLabel = new QLabel("Last Change:");
+    showFileModificatonTimeLabel = new QLabel("");
 
     ui->programRadioButton->setChecked(true);
-    ui->lowByteLineEdit->setInputMask("HH");
-    ui->highByteLineEdit->setInputMask("HH");
     ui->tabWidget->setCurrentIndex(0);
+
+    ui->statusBar->insertPermanentWidget(0, fileSizeLabel, 1);
+    ui->statusBar->insertPermanentWidget(1, showFileSizeLabel, 1);
+    ui->statusBar->insertPermanentWidget(2, fileModificationTimeLabel, 1);
+    ui->statusBar->insertPermanentWidget(3, showFileModificatonTimeLabel, 1);
+    ui->statusBar->insertPermanentWidget(4, statusLabel, 1);
+    ui->statusBar->insertPermanentWidget(5, statusProgressBar, 1);
 
     timeLine = new QTimeLine(500, this);
     timeLine->setFrameRange(0, 100);
@@ -66,21 +81,6 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
     fileDialog->setFileMode(QFileDialog::ExistingFile);
     fileDialog->setNameFilter("All HEX files (*.HEX *.hex)");;
     fileDialog->setDirectory("/home/");
-
-    statusProgressBar = new QProgressBar(this);
-    statusProgressBar->setValue(0);
-    statusProgressBar->setTextVisible(false);
-    fileSizeLabel = new QLabel("File size:",this);
-    showFileSizeLabel = new QLabel("",this);
-    fileModificationTimeLabel = new QLabel("Last Change:",this);
-    showFileModificatonTimeLabel = new QLabel("",this);
-
-    ui->statusBar->insertPermanentWidget(0, fileSizeLabel, 1);
-    ui->statusBar->insertPermanentWidget(1, showFileSizeLabel, 1);
-    ui->statusBar->insertPermanentWidget(2, fileModificationTimeLabel, 1);
-    ui->statusBar->insertPermanentWidget(3, showFileModificatonTimeLabel, 1);
-    ui->statusBar->insertPermanentWidget(4, statusLabel, 1);
-    ui->statusBar->insertPermanentWidget(5, statusProgressBar, 1);
 
     connect(timeLine, SIGNAL(frameChanged(int)), statusProgressBar, SLOT(setValue(int)));
     connect(ui->HEXFileLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateStatusBar(QString)));
@@ -93,16 +93,13 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
     connect(fileDialog, &QFileDialog::filesSelected, this, &USBtinyISPGUI::fileSelected);
 
     // Fuse line edits
-    connect(ui->lowByteLineEdit, &QLineEdit::textEdited, this, &USBtinyISPGUI::LFUSEChanged);
-    connect(ui->highByteLineEdit, &QLineEdit::textEdited, this, &USBtinyISPGUI::HFUSEChanged);
+    connect(lowByteLineEdit, &QLineEdit::textEdited, //this, &USBtinyISPGUI::LFUSEChanged);
+            lfuseBits, static_cast<void (BitsWidget:: *)(QString)>(&BitsWidget::setValue));
+    connect(highByteLineEdit, &QLineEdit::textEdited, //this, &USBtinyISPGUI::HFUSEChanged);
+            hfuseBits, static_cast<void (BitsWidget:: *)(QString)>(&BitsWidget::setValue));
 
-    // Button Group
-    connect(hfuseButtonGroup,
-            static_cast<void (QButtonGroup:: *)(int)>(&QButtonGroup::buttonClicked),
-            this, &USBtinyISPGUI::HFUSEButtonGroupChanged);
-    connect(lfuseButtonGroup,
-            static_cast<void (QButtonGroup:: *)(int)>(&QButtonGroup::buttonClicked),
-            this, &USBtinyISPGUI::LFUSEButtonGroupChanged);
+    connect(hfuseBits, &BitsWidget::valueChanged, this, &USBtinyISPGUI::hFuseBitsChanged);
+    connect(lfuseBits, &BitsWidget::valueChanged, this, &USBtinyISPGUI::lFuseBitsChanged);
 
     // Push buttons
     connect(ui->readPushButton, &QPushButton::clicked, this, &USBtinyISPGUI::readPushButtonPressed);
@@ -157,9 +154,16 @@ USBtinyISPGUI::~USBtinyISPGUI()
     delete deviceInfo;
     delete showFileSizeLabel;
     delete showFileModificatonTimeLabel;
-    delete lfuseButtonGroup;
-    delete hfuseButtonGroup;
+    delete hfuseBits;
+    delete lfuseBits;
+    delete highByteLineEdit;
+    delete lowByteLineEdit;
     delete shell_cmd_executor;
+    delete hFormLayout;
+    delete lFormLayout;
+    delete hFormGroupBox;
+    delete lFormGroupBox;
+
 }
 
 int USBtinyISPGUI::init()
@@ -292,12 +296,12 @@ void USBtinyISPGUI::slotStartAvrdude(int actionID)
             shell_cmd_executor->add_argument("-U");
             shell_cmd_executor->add_argument(
                         QString(cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES))
-                        .arg("lfuse", "0x" + ui->lowByteLineEdit->text())
+                        .arg("lfuse", "0x" + lowByteLineEdit->text())
                         );
             shell_cmd_executor->add_argument("-U");
             shell_cmd_executor->add_argument(
                         QString(cmdLineOptions.at(USBtinyISPGUI::writeFUSEBYTES))
-                        .arg("hfuse", "0x" + ui->highByteLineEdit->text())
+                        .arg("hfuse", "0x" + highByteLineEdit->text())
                         );
             statusLabel->setText("Writing");
             break;
@@ -424,23 +428,6 @@ void USBtinyISPGUI::getDeviceInfo()
     emit signalStartAvrdude(USBtinyISPGUI::getDeviceInfoData);
 }
 
-
-void USBtinyISPGUI::lFuseValueChanged()
-{
-    for(int bit = 0; bit < 8; bit++)
-    {
-      lfuseButtonGroup->button(bit)->setChecked(lfuseByteValue[bit]);
-    }
-}
-
-void USBtinyISPGUI::hFuseValueChanged()
-{
-    for(int bit = 0; bit < 8; bit++)
-    {
-      hfuseButtonGroup->button(bit)->setChecked(hfuseByteValue[bit]);
-    }
-}
-
 void USBtinyISPGUI::fillMCUComboBox(void)
 {
     if (AVR8_devices.empty()) {
@@ -458,48 +445,22 @@ void USBtinyISPGUI::getDefaultValuesForFuseBits()
     int avr8_device = ui->microcontrollerComboBox->currentIndex();
 
     QString hex_out = QString("%1").arg(AVR8_devices[avr8_device].hfuses.value.to_ulong(), 2, 16, QLatin1Char('0'));
-    ui->highByteLineEdit->setText(hex_out.toUpper());
-    hfuseByteValue = AVR8_devices[avr8_device].hfuses.value.to_ulong();
-    hFuseValueChanged();
+    highByteLineEdit->setText(hex_out.toUpper());
+    hfuseBits->setValue(AVR8_devices[avr8_device].hfuses.value.to_ulong());
 
     hex_out = QString("%1").arg(AVR8_devices[avr8_device].lfuses.value.to_ulong(), 2, 16, QLatin1Char('0'));
-    ui->lowByteLineEdit->setText(hex_out.toUpper());
-    lfuseByteValue = AVR8_devices[avr8_device].lfuses.value.to_ulong();
-    lFuseValueChanged();
+    lowByteLineEdit->setText(hex_out.toUpper());
+    lfuseBits->setValue(AVR8_devices[avr8_device].lfuses.value.to_ulong());
 }
 
-void USBtinyISPGUI::LFUSEChanged(QString newValue)
+void USBtinyISPGUI::hFuseBitsChanged()
 {
-    lfuseByteValue = newValue.toInt(nullptr, 16);
-    lFuseValueChanged();
+    highByteLineEdit->setText(hfuseBits->toHexQtString());
 }
 
-void USBtinyISPGUI::HFUSEChanged(QString newValue)
+void USBtinyISPGUI::lFuseBitsChanged()
 {
-    hfuseByteValue = newValue.toInt(nullptr, 16);
-    hFuseValueChanged();
-}
-
-void USBtinyISPGUI::HFUSEButtonGroupChanged(int id)
-{
-    if (hfuseButtonGroup->button(id)->isChecked()) {
-        hfuseByteValue[id] = 1;
-    }
-    else {
-        hfuseByteValue[id] = 0;
-    }
-    ui->highByteLineEdit->setText(QString::number(hfuseByteValue.to_ulong(),16).toUpper());
-}
-
-void USBtinyISPGUI::LFUSEButtonGroupChanged(int id)
-{
-    if (lfuseButtonGroup->button(id)->isChecked()) {
-        lfuseByteValue[id] = 1;
-    }
-    else {
-        lfuseByteValue[id] = 0;
-    }
-    ui->lowByteLineEdit->setText(QString::number(lfuseByteValue.to_ulong(),16).toUpper());
+    lowByteLineEdit->setText(lfuseBits->toHexQtString());
 }
 
 void USBtinyISPGUI::closeEvent(QCloseEvent *event)
@@ -539,12 +500,16 @@ void USBtinyISPGUI::AVR8_device_selected(int index)
         ui->memoryComboBox->addItem("EEPROM");
     }
 
+    QStringList hfuse_bits_names;
+    QStringList lfuse_bits_names;
     // Set the names of the check box objects for each fuse bit
     for(int bit = 0; bit < 8; bit++)
     {
-        lfuseButtonGroup->button(bit)->setText(AVR8_devices[index].lfuses.fuse_bits[bit]);
-        hfuseButtonGroup->button(bit)->setText(AVR8_devices[index].hfuses.fuse_bits[bit]);
+        lfuse_bits_names.append(AVR8_devices[index].lfuses.fuse_bits[bit]);
+        hfuse_bits_names.append(AVR8_devices[index].hfuses.fuse_bits[bit]);
     }
+    lfuseBits->setNames(lfuse_bits_names);
+    hfuseBits->setNames(hfuse_bits_names);
 
     getDefaultValuesForFuseBits();
 }
@@ -559,7 +524,6 @@ void USBtinyISPGUI::slotShellCmdExecutionFinished(int shell_cmd_exit_code)
     timeLine->stop();
 
     QString processOutput;
-    bool ok;
     QMessageBox msgBox;
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
@@ -617,12 +581,10 @@ void USBtinyISPGUI::slotShellCmdExecutionFinished(int shell_cmd_exit_code)
                 processOutput = shell_cmd_executor->readAllStandardOutput();
                 processOutput = processOutput.remove("0x",Qt::CaseInsensitive);
                 list = processOutput.split(QRegExp("\\s+"));
-                ui->highByteLineEdit->setText(list.at(1).toUpper());
-                hfuseByteValue=ui->highByteLineEdit->text().toInt(&ok,16);
-                HFUSEChanged(list.at(1));
-                ui->lowByteLineEdit->setText(list.at(0).toUpper());
-                LFUSEChanged(list.at(0));
-                lfuseByteValue=ui->lowByteLineEdit->text().toInt(&ok,16);
+                highByteLineEdit->setText(list.at(1).toUpper());
+                hfuseBits->setValue(list.at(1));
+                lowByteLineEdit->setText(list.at(0).toUpper());
+                lfuseBits->setValue(list.at(0));
             }
             break;
             case USBtinyISPGUI::getDeviceInfoData:

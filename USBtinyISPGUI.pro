@@ -11,7 +11,7 @@
 #QMAKE_CXX = ccache g++
 
 VERSION_MAJOR = 1
-VERSION_MINOR = 0
+VERSION_MINOR = 2
 VERSION_RELEASE = 0
 
 QMAKE_CXX = g++
@@ -28,10 +28,10 @@ DEFINES += "APPLICATION_MAJOR_VERSION=$$VERSION_MAJOR" \
            "APPLICATION_MINOR_VERSION=$$VERSION_MINOR" \
            "APPLICATION_RELEASE_VERSION=$$VERSION_RELEASE"
 
-#INCLUDEPATH += /usr/include/
-#INCLUDEPATH += /usr/local/include
+INCLUDEPATH += src
 
 SOURCES += src/main.cpp \
+    src/bitswidget.cpp \
     src/USBtinyISPGUI.cpp \
     src/confighandler.cpp \
     src/configuredialog.cpp \
@@ -39,6 +39,7 @@ SOURCES += src/main.cpp \
     src/shellcmdexecutor.cpp
 
 HEADERS += src/USBtinyISPGUI.h \
+    src/bitswidget.h \
     src/confighandler.h \
     src/configuredialog.h \
     src/deviceinfodialog.h \
@@ -48,8 +49,6 @@ FORMS += src/USBtinyISPGUI.ui \
     src/configureDialog.ui \
     src/deviceinfodialog.ui
 
-#LIBS += -L/usr/lib/x86_64-linux-gnu
-#LIBS += -L/usr/local/lib
 LIBS += -lpugixml -lusb
 
 RESOURCES += resource.qrc

@@ -22,12 +22,15 @@
 #include <QTimeLine>
 #include <qprogressbar.h>
 #include <qevent.h>
+#include <QLineEdit>
 #include <QThread>
+#include <QFormLayout>
 
 #include "configuredialog.h"
 #include "deviceinfodialog.h"
 #include "confighandler.h"
 #include "shellcmdexecutor.h"
+#include "bitswidget.h"
 
 extern "C"
 {
@@ -63,8 +66,6 @@ public:
 private:
     Ui::USBtinyISPGUIClass *ui = nullptr;
     QFileInfo HEXFile;
-    std::bitset<8> hfuseByteValue = 0x00;
-    std::bitset<8> lfuseByteValue = 0x00;
     QVector<ConfigHandler::MCU> AVR8_devices;
     ConfigHandler xml_configuration;
     ConfigHandler::AvrdudeConfig avrdude_config;
@@ -82,8 +83,14 @@ private:
     QLabel *showFileSizeLabel = nullptr;;
     QLabel *fileModificationTimeLabel = nullptr;;
     QLabel *showFileModificatonTimeLabel = nullptr;
-    QButtonGroup *hfuseButtonGroup = nullptr;
-    QButtonGroup *lfuseButtonGroup = nullptr;
+    QLineEdit *lowByteLineEdit = nullptr;
+    QLineEdit *highByteLineEdit = nullptr;
+    QFormLayout *lFormLayout = nullptr;
+    QFormLayout *hFormLayout = nullptr;
+    QGroupBox *hFormGroupBox = nullptr;
+    QGroupBox *lFormGroupBox = nullptr;
+    BitsWidget *hfuseBits = nullptr;
+    BitsWidget *lfuseBits = nullptr;
 
     const QStringList cmdLineOptions = {
         "%1:w:%2",
@@ -102,10 +109,6 @@ public:
     USBtinyISPGUI::Actions processID;
     static bool findUSBTinyProgrammer(void);
 
-private:
-    void lFuseValueChanged();
-    void hFuseValueChanged();
-
 private slots:
     void fillMCUComboBox(void);
     void fileSelected(QStringList);
@@ -118,10 +121,8 @@ private slots:
     void newConfigAvailable(const ConfigHandler::AvrdudeConfig new_avrdude_cfg, const ConfigHandler::BurnerConfig new_burner_cfg);
     void getDeviceInfo();
     void getDefaultValuesForFuseBits();
-    void LFUSEChanged(QString);
-    void HFUSEChanged(QString);
-    void HFUSEButtonGroupChanged(int);
-    void LFUSEButtonGroupChanged(int);
+    void hFuseBitsChanged();
+    void lFuseBitsChanged();
     void slotStartAvrdude(int);
     void readPushButtonPressed();
     void writePushButtonPressed();
