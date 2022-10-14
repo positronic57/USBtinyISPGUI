@@ -97,7 +97,7 @@ private:
         "-e",
         "lfuse:r:-:h",
         "hfuse:r:-:h",
-        "%1:w:%2m"
+        "%1:w:%2:m"
     };
 
     const QString application_version_string = QString("%1.%2.%3")
