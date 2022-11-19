@@ -22,7 +22,8 @@ public:
        ERROR_CONFIG_ENTRY_NOT_FOUND,
        ERROR_CONFIG_ENTRY_UPDATE_FAILED,
        ERROR_NO_AVR8_DEVICES_FOUND,
-       ERROR_DEF_OF_FUSE_BIT_MISSING
+       ERROR_DEF_OF_FUSE_BIT_MISSING,
+       ERROR_NO_BURNERS_FOUND
     };
 
     struct AvrdudeConfig {
@@ -32,12 +33,21 @@ public:
         explicit AvrdudeConfig(const QString &bin, const QString &conf);
     };
 
+    struct Burner {
+        QString device = "USBtinyISP";
+        QString avrdude_name = "usbtiny";
+        unsigned short usb_vendor_id = 0x1781;
+        unsigned short usb_product_id = 0x0C9F;
+        Burner() = default;
+        explicit Burner(const QString &dev, const QString &dude_name, unsigned short vendor_id, unsigned short product_id);
+    };
+
     struct BurnerConfig {
         bool errase_flash_before_burn = true;
         bool verify_after_burn = false;
-        QString burner = "usbtiny";
+        Burner burner;
         BurnerConfig() = default;
-        explicit BurnerConfig(bool errase_flash, bool verify, const QString &brn);
+        explicit BurnerConfig(bool errase_flash, bool verify, const ConfigHandler::Burner &brn);
     };
 
     struct Fuses {
@@ -78,7 +88,8 @@ private:
         "Config entry \"%1\" not found in XML file",
         "Update of config entry \"%1\" failed",
         "No AVR8 MCUs defined in configuration file",
-        "%1 %2 for %3 missing in configuration file"
+        "%1 %2 for %3 missing in configuration file",
+        "Programmer device(s) missing in configuration file"
     };
 
     int read_mcu_fuse_bits(const QString &mcu_model, const pugi::xml_node &fuse_node, struct Fuses &mcu_fuse);
@@ -94,6 +105,7 @@ public:
     int get_general_config(ConfigHandler::AvrdudeConfig &avrdude_config, ConfigHandler::BurnerConfig &burner_config);
     int write_general_config(const ConfigHandler::AvrdudeConfig &avrdude_config, const ConfigHandler::BurnerConfig &burner_config);
     int get_mcus_definitions(QVector<struct ConfigHandler::MCU> &devices);
+    int get_burners(QList<struct ConfigHandler::Burner> &burners);
 
     static bool config_file_exists(const QString &config_file);
     static bool is_config_file_readable(const QString &config_file);

@@ -37,9 +37,6 @@ extern "C"
     #include "usb.h"
 }
 
-#define USBTINY_VENDOR_ID 0x1781
-#define USBTINY_PRODUCT_ID 0x0C9F
-
 namespace Ui
 {
     class USBtinyISPGUIClass;
@@ -105,9 +102,14 @@ private:
             .arg(APPLICATION_MINOR_VERSION)
             .arg(APPLICATION_RELEASE_VERSION);
 
+    const QString fuse_bits_tool_tip = "Toggled check box will set the fuse bit to 1\n"
+            "(the fuse bit on MCU will be unprogrammed).\n"
+            "Untoggled check box will program the fuse bit on the MCU\n"
+            "(function behind the fuse is enabled).";
+
 public:
     USBtinyISPGUI::Actions processID;
-    static bool findUSBTinyProgrammer(void);
+    static bool findAVR8USBProgrammer(unsigned short usb_vendor_id, unsigned short usb_product_id);
 
 private slots:
     void fillMCUComboBox(void);

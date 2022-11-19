@@ -9,7 +9,7 @@
 
 #include "configuredialog.h"
 
-configureDialog::configureDialog(ConfigHandler::AvrdudeConfig &avrdude_config, ConfigHandler::BurnerConfig &burner_config, QWidget *parent)
+configureDialog::configureDialog(ConfigHandler::AvrdudeConfig &avrdude_config, ConfigHandler::BurnerConfig &burner_config, const QList<ConfigHandler::Burner> &burners, QWidget *parent)
     : QDialog(parent),
       ui(new Ui::configureDialog)
 {
@@ -19,6 +19,11 @@ configureDialog::configureDialog(ConfigHandler::AvrdudeConfig &avrdude_config, C
     ui->confFileLineEdit->setText(avrdude_config.config_file);
     ui->verifyCheckBox->setChecked(burner_config.verify_after_burn);
     ui->disableAutoEraseCheckBox->setChecked(burner_config.errase_flash_before_burn);
+
+    avrdude_burners = burners;
+    for(int burner = 0; burner < burners.length(); burner++) {
+        ui->burnersComboBox->addItem(burners.at(burner).device);
+    }
 
     connect(ui->cancelPushButton,SIGNAL(clicked()),this, SLOT(reject()));
     connect(ui->OKPushButton,SIGNAL(clicked()),this, SLOT(accept()));
@@ -61,7 +66,7 @@ void configureDialog::accept()
     ConfigHandler::BurnerConfig burner_config(
                 ui->disableAutoEraseCheckBox->isChecked(),
                 ui->verifyCheckBox->isChecked(),
-                "usbtiny"
+                avrdude_burners.at(ui->burnersComboBox->currentIndex())
                 );
 
     emit signalNewConfigValuesAvailable(avrdude_conf, burner_config);

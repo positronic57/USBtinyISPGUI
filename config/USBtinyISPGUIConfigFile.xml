@@ -5,7 +5,12 @@
       <avrdudeConf>/etc/avrdude.conf</avrdudeConf>
       <eraseBefore>1</eraseBefore>
       <verifyAfter>1</verifyAfter>
+         <burners>
+	    <burner model="USBtinyISP" avrdude_name="usbtiny" usb_vendor_id="0x1781" usb_product_id="0x0C9F"/>
+            <burner model="MPLAB PICkit 4" avrdude_name="pickit4_isp" usb_vendor_id="0x03eb" usb_product_id="0x2177"/>
+         </burners>
    </config>
+  <AVR8Devices>
    <AVRDevice id="Atmega328P">
       <EEPROM>1</EEPROM>
       <HFUSE defaultValue="0xD9">
@@ -213,4 +218,5 @@
          <bit0>CKSEL0</bit0>
       </LFUSE>
    </AVRDevice>
+   	</AVR8Devices>
 </avrdudeGUI>

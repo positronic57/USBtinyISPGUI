@@ -11,8 +11,8 @@
 #QMAKE_CXX = ccache g++
 
 VERSION_MAJOR = 1
-VERSION_MINOR = 2
-VERSION_RELEASE = 1
+VERSION_MINOR = 3
+VERSION_RELEASE = 0
 
 QMAKE_CXX = g++
 QMAKE_CXXFLAGS += "-fno-sized-deallocation"

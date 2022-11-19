@@ -21,11 +21,12 @@ class configureDialog : public QDialog
     Q_OBJECT
 
 public:
-    configureDialog(ConfigHandler::AvrdudeConfig &avrdude_config, ConfigHandler::BurnerConfig &burner_config, QWidget *parent = 0);
+    configureDialog(ConfigHandler::AvrdudeConfig &avrdude_config, ConfigHandler::BurnerConfig &burner_config, const QList<ConfigHandler::Burner> &burners, QWidget *parent = 0);
     ~configureDialog();
 
 private:
     Ui::configureDialog *ui;
+    QList<ConfigHandler::Burner> avrdude_burners;
 
 public slots:
     void accept();

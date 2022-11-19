@@ -69,16 +69,6 @@ int main(int argc, char *argv[])
                     );
     }
 
-    // Show warning message in case USBtinyISP programmer is not present/connected
-    if (!w.findUSBTinyProgrammer())
-    {
-        show_messages_on_start(
-                    QMessageBox::Warning,
-                    "Warrning",
-                    "USBtinyISP programmer is not present/connected!\n\nConnect it before using the programmer related functions."
-                    );
-    }
-
     // Load configuration
     int error_code = w.init();
     if (error_code) {

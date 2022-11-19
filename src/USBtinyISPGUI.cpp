@@ -41,6 +41,8 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
 
     hfuseBits = new BitsWidget(8, BitsWidget::BIT_BOXES_LAYOUT::Vertical);
     lfuseBits = new BitsWidget(8, BitsWidget::BIT_BOXES_LAYOUT::Vertical);
+    hfuseBits->setToolTip(fuse_bits_tool_tip);
+    lfuseBits->setToolTip(fuse_bits_tool_tip);
     lowByteLineEdit = new QLineEdit;
     highByteLineEdit = new QLineEdit;
     lowByteLineEdit->setInputMask("HH");
@@ -137,7 +139,7 @@ USBtinyISPGUI::USBtinyISPGUI(QWidget *parent)
     connect(shell_cmd_executor, static_cast<void (QProcess::*)(int)>(&ShellCMDExecutor::finished),
             this, &USBtinyISPGUI::slotShellCmdExecutionFinished);
 
-    setWindowTitle(QString("USBtinyISP GUI v%1").arg(application_version_string));
+    setWindowTitle(QString("Simple Avrdude GUI Front End v%1").arg(application_version_string));
 }
 
 USBtinyISPGUI::~USBtinyISPGUI()
@@ -188,7 +190,12 @@ int USBtinyISPGUI::init()
     fillMCUComboBox();
     AVR8_device_selected(0);
 
-    configureProgrammer = new configureDialog(avrdude_config, burner_config, this);
+    QList<ConfigHandler::Burner> burners;
+    xml_configuration.get_burners(burners);
+    if (burners.isEmpty()) {
+        burners.append(ConfigHandler::Burner());
+    }
+    configureProgrammer = new configureDialog(avrdude_config, burner_config, burners, this);
     connect(configureProgrammer, &configureDialog::signalNewConfigValuesAvailable, this, &USBtinyISPGUI::newConfigAvailable);
 
     return 0;
@@ -252,9 +259,9 @@ void USBtinyISPGUI::writePushButtonPressed()
 
 void USBtinyISPGUI::slotStartAvrdude(int actionID)
 {
-    if (!findUSBTinyProgrammer())
+    if (!findAVR8USBProgrammer(burner_config.burner.usb_vendor_id, burner_config.burner.usb_product_id))
     {
-        QMessageBox::critical(this,"Error","USBTiny programmer is not present!\nPlease connect the USBTiny and then try again.");
+        QMessageBox::critical(this,"Error", QString("%1 programmer is not present!\nPlease connect the programmer and then try again.").arg(burner_config.burner.device));
         statusLabel->setText("Ready");
         return;
     }
@@ -264,7 +271,7 @@ void USBtinyISPGUI::slotStartAvrdude(int actionID)
     shell_cmd_executor->add_argument("-C");
     shell_cmd_executor->add_argument(avrdude_config.config_file);
     shell_cmd_executor->add_argument("-c");
-    shell_cmd_executor->add_argument(burner_config.burner);
+    shell_cmd_executor->add_argument(burner_config.burner.avrdude_name);
     shell_cmd_executor->add_argument("-p");
     shell_cmd_executor->add_argument(AVR8_devices[ui->microcontrollerComboBox->currentIndex()].model);
     shell_cmd_executor->add_argument("-q");
@@ -372,7 +379,7 @@ void USBtinyISPGUI::processError(QProcess::ProcessError error)
 }
 
 
-bool USBtinyISPGUI::findUSBTinyProgrammer(void)
+bool USBtinyISPGUI::findAVR8USBProgrammer(unsigned short usb_vendor_id, unsigned short usb_product_id)
 {
     struct usb_bus *thisBus;
     struct usb_device *dev;
@@ -381,10 +388,14 @@ bool USBtinyISPGUI::findUSBTinyProgrammer(void)
     usb_find_busses();
     usb_find_devices();
 
-    for (thisBus = usb_get_busses(); thisBus; thisBus = thisBus->next)
-       for (dev = thisBus->devices; dev; dev = dev->next)
-           if (dev->descriptor.idVendor==USBTINY_VENDOR_ID && dev->descriptor.idProduct==USBTINY_PRODUCT_ID)
-               return true;
+    for (thisBus = usb_get_busses(); thisBus; thisBus = thisBus->next) {
+        for (dev = thisBus->devices; dev; dev = dev->next) {
+            if ((dev->descriptor.idVendor == usb_vendor_id) && (dev->descriptor.idProduct == usb_product_id)) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 
@@ -470,13 +481,15 @@ void USBtinyISPGUI::closeEvent(QCloseEvent *event)
 
 
 void USBtinyISPGUI::about() {
-QMessageBox::about(this, tr("About USBtinyISP GUI"),
+QMessageBox::about(this, tr("About Simple Avrdude GUI Front End"),
             tr(
-               "<h2>USBtinyISP GUI 1.0</h2>"
+               "<h2>Simple Avrdude GUI Front End</h2>"
                "<p>"
-               "<p>USBtiny GUI is a small GUI frontend application for "
-               "<a href=\"https://github.com/avrdudes/avrdude/\">avrdude</a> (version 5.5 or newer) "
-               "and <a href=\"https://learn.adafruit.com/usbtinyisp/overview\">USBtinyISP</a> programmer."
+               "<p>It is a small Qt5 application for programming Microchip AVR8 MCUs using "
+               "<a href=\"https://github.com/avrdudes/avrdude/\">avrdude</a> "
+               "tool and USB In-Circuit Programmers: "
+               "<a href=\"https://learn.adafruit.com/usbtinyisp/overview\">USBtinyISP</a> "
+               "and <a href=\"https://www.microchip.com/en-us/education/developer-help/learn-tools-software/programmers-debuggers/pickit4\">Microchip MPLAB PICkit 4</a>."
                "<p>XML support done with <a href=\"https://pugixml.org/\">pugixml</a> library."
                "<p>Legacy version 0.1 of <a href=\"https://libusb.info/\">libusb</a> used for detection of USBtinyISP programmer."
                "<p>Author: Goce Boshkovski"

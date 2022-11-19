@@ -215,6 +215,52 @@ int ConfigHandler::get_mcus_definitions(QVector<struct ConfigHandler::MCU> &devi
     return status;
 }
 
+int ConfigHandler::get_burners(QList<Burner> &burners)
+{
+    int status = -1;
+
+    last_error.clear();
+
+    if (!config_loaded) {
+        return status;
+    }
+
+    pugi::xpath_node_set burners_defs = config_xml.select_nodes("//burners/burner");
+
+    if (burners_defs.empty()) {
+        last_error.code = ERROR_CODES::ERROR_NO_BURNERS_FOUND;
+        last_error.message = error_msg[static_cast<int>(last_error.code)];
+        return status;
+    }
+
+    status = 0;
+    burners.clear();
+    struct Burner burner;
+
+    for (pugi::xpath_node_set::const_iterator it = burners_defs.begin(); it != burners_defs.end(); ++it)
+    {
+        pugi::xpath_node burner_def = *it;
+
+        // Get model name
+        burner.device = QString(burner_def.node().attribute("model").value());
+
+        // Get avrdude name for the device
+        burner.avrdude_name = burner_def.node().attribute("avrdude_name").value();
+
+        QString vendor_id(burner_def.node().attribute("usb_vendor_id").value());
+        QString product_id(burner_def.node().attribute("usb_product_id").value());
+        bool valid = false;
+        burner.usb_vendor_id = static_cast<unsigned short>(vendor_id.toInt(&valid, 0));
+        burner.usb_product_id = static_cast<unsigned short>(product_id.toInt(&valid, 0));
+
+        burner.avrdude_name = burner_def.node().attribute("avrdude_name").value();
+
+        burners.append(burner);
+    }
+
+    return status;
+}
+
 ConfigHandler::MCU::MCU(const QString &mcu_model, bool eeprom, const struct Fuses &mcu_hfuses, const struct Fuses &mcu_lfuses)
 {
     model = mcu_model;
@@ -229,7 +275,7 @@ ConfigHandler::AvrdudeConfig::AvrdudeConfig(const QString &bin, const QString &c
     config_file = conf;
 }
 
-ConfigHandler::BurnerConfig::BurnerConfig(bool errase_flash, bool verify, const QString &brn)
+ConfigHandler::BurnerConfig::BurnerConfig(bool errase_flash, bool verify, const ConfigHandler::Burner &brn)
 {
     errase_flash_before_burn = errase_flash;
     verify_after_burn = verify;
@@ -261,4 +307,12 @@ void ConfigHandler::error::clear()
 {
     code = ERROR_CODES::NO_ERROR;
     message.clear();
+}
+
+ConfigHandler::Burner::Burner(const QString &dev, const QString &dude_name, unsigned short vendor_id, unsigned short product_id)
+{
+    device = dev;
+    avrdude_name = dude_name;
+    usb_vendor_id = vendor_id;
+    usb_product_id = product_id;
 }

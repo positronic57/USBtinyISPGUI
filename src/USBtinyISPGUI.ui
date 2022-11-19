@@ -28,7 +28,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>USBtinyISP GUI</string>
+   <string>Simple Avrdude GUI Front End</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resource.qrc">
